@@ -15,12 +15,16 @@ public class Comment {
     private long blogId;
     private long authorId;
     private String comment;
+    private boolean isReply;
+    private long repliedToId;
 
-    public Comment(long id, Timestamp pubDate, long blogId, long authorId, String comment) {
+    public Comment(long id, Timestamp pubDate, long blogId, long authorId, String comment, boolean isReply, long repliedToId) {
         this.id = id;
         this.pubDate = pubDate;
         this.blogId = blogId;
         this.authorId = authorId;
         this.comment = comment;
+        this.isReply = isReply;
+        this.repliedToId = repliedToId;
     }
 }

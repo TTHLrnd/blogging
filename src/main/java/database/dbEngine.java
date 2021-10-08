@@ -1,8 +1,6 @@
 package database;
 
-import model.Blog;
-import model.Comment;
-import model.User;
+import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -43,7 +41,11 @@ public class dbEngine {
     }
 
     public void loadAllData() {
-        Database.getInstance(getAuthorsFromDB(), getBlogsFromDB(), getCommentsFromDB());
+        Database.getInstance(
+                getAuthorsFromDB(),
+                getBlogsFromDB(),
+                getCommentsFromDB(),
+                getTemplatesFromDB());
         linkAuthorsToBlogs();
         linkCommentsToBlogs();
     }
@@ -124,15 +126,21 @@ public class dbEngine {
             while(resultSet.next()) {
                 long id = resultSet.getInt("id");
                 String title = resultSet.getString("title");
+                String category = resultSet.getString("category");
                 String content = resultSet.getString("content");
                 long authorId = resultSet.getInt("authorid");
+                long templateId = resultSet.getInt("templateid");
                 Timestamp pubDate = resultSet.getTimestamp("pubdate");
+                String blogState = resultSet.getString("blogstate");
                 temp.add(new Blog(
                         id,
                         title,
+                        category,
                         content,
                         authorId,
-                        pubDate
+                        templateId,
+                        pubDate,
+                        blogState
                 ));
             }
         } catch (SQLException e) {
@@ -157,13 +165,38 @@ public class dbEngine {
                 long blogId = resultSet.getInt("blogid");
                 long authorId = resultSet.getInt("authorid");
                 String comment = resultSet.getString("comment");
+                boolean isReply = resultSet.getBoolean("isreply");
+                long repliedToId = resultSet.getInt("repliedto");
                 temp.add(new Comment(
                         id,
                         pubDate,
                         blogId,
                         authorId,
-                        comment
+                        comment,
+                        isReply,
+                        repliedToId
                 ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error");
+            return null;
+        }
+        return temp;
+    }
+
+    public List<Template> getTemplatesFromDB() {
+        String query = "SELECT * FROM templates;";
+
+        List<Template> temp = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet resultSet = ps.executeQuery();
+            while(resultSet.next()) {
+                long id = resultSet.getInt("id");
+                String template = resultSet.getString("template");
+                temp.add(new Template(id, template));
             }
         } catch (SQLException e) {
             e.printStackTrace();
