@@ -1,6 +1,6 @@
 package modul;
 
-public class CommentHandler {
+public class CommentHandler extends Handler {
 
     public static void writeComment(){
         //TODO

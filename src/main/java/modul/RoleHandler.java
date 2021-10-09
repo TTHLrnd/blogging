@@ -1,12 +1,13 @@
 package modul;
 
+import model.User;
 import model.UserRoles;
 import model.Roles;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoleHandler {
+public class RoleHandler extends Handler {
 
 
     private static Map<UserRoles, Roles> roleMap = new HashMap<>();
@@ -17,8 +18,8 @@ public class RoleHandler {
         }
     }
 
-    public static void checkRole(){
-        //TODO
+    public static Roles getUserRole(User user){
+        return roleMap.get(user.getRole());
     }
 
 

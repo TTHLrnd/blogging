@@ -28,4 +28,10 @@ public class User {
         this.regDate = regDate;
         this.role = UserRoles.valueOf(role);
     }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }

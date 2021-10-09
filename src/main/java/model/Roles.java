@@ -1,11 +1,15 @@
 package model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * admin: does everything
  * mod: Has privileges to edit blogs
  * user: blog, edit self stuff, comment
  */
-
+@Getter
+@Setter
 public class Roles {
     private boolean readBlog;
     private boolean writeBlog;

@@ -4,7 +4,6 @@ import model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -29,14 +28,14 @@ class SearchEngineTest {
 
         );
         List<User> nullList = null;
-        Assertions.assertTrue(checkLists(expectedList, SearchEngine.searchUserByName(nullEntry, expectedList)));
-        Assertions.assertTrue(checkLists(expectedList, SearchEngine.searchUserByName(emptyEntry, expectedList)));
+        Assertions.assertTrue(checkLists(expectedList, SearchEngine.searchUser(nullEntry, expectedList)));
+        Assertions.assertTrue(checkLists(expectedList, SearchEngine.searchUser(emptyEntry, expectedList)));
 
         List<User> resList = new ArrayList<>();
         expectedList.get(0).setUsername("Olajos");
         resList.add(expectedList.get(0));
 
-        Assertions.assertTrue(checkLists(resList, SearchEngine.searchUserByName(testData, expectedList)));
+        Assertions.assertTrue(checkLists(resList, SearchEngine.searchUser(testData, expectedList)));
     }
 
     private boolean checkLists(List<User> expected, List<User> actual) {

@@ -40,5 +40,10 @@ public class Blog {
         this.blogState = BlogState.valueOf(blogState);
     }
 
-
+    public Blog(String title, Categories category, String content, long templateId) {
+        this.title = title;
+        this.category = category;
+        this.content = content;
+        this.templateId = templateId;
+    }
 }

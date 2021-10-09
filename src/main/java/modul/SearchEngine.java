@@ -1,13 +1,13 @@
 package modul;
 
 import model.*;
+import utils.Utils;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchEngine {
-    public static List<User> searchUserByName(String search, List<User> users) {
+    public static List<User> searchUser(String search, List<User> users) {
         List<User> res = new ArrayList<>();
         if (search == null || search.equals("")) {
             System.out.println("Search field is empty!");
@@ -15,6 +15,17 @@ public class SearchEngine {
         }
         for (User user : users) {
             if (search.equals(user.getUsername())) {
+                res.add(user);
+            }
+
+        }
+        return res;
+    }
+
+    public static List<User> searchUser(long searchId, List<User> users) {
+        List<User> res = new ArrayList<>();
+        for (User user : users) {
+            if (searchId == user.getId()) {
                 res.add(user);
             }
 
@@ -31,27 +42,13 @@ public class SearchEngine {
         for (User user : users) {
             if (search.equals(user.getRole())) {
                 res.add(user);
-                listUserData(user);
+                Utils.showUserData(user);
             }
 
         }
         return res;
     }
 
-    public static void listUserData(User user){
-        System.out.println("Username: " + user.getUsername());
-        System.out.println("Email: " + user.getEmail());
-        System.out.println("Password: " +user.getPassword());
-        System.out.println("User ID: " +user.getId());
-        System.out.println("Registration date: " +user.getRegDate());
-        System.out.println("Role: " +user.getRole());
-        System.out.println("Blogs name: ");
-        for (Blog blog:  user.getBlogs()){
-            System.out.println(blog.getTitle());
-        }
-
-
-    }
     public static List<Blog> listUserBlogs(User user){
         if (user == null || user.getBlogs() == null) {
             System.out.println("No user or blogs to be listed");
